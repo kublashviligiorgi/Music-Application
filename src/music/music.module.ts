@@ -1,0 +1,14 @@
+import { Module } from '@nestjs/common';
+import { MusicService } from './music.service';
+import { MusicController } from './music.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MusicEntity } from './entities/music.entity';
+import { MusicRepository } from 'src/music.repository';
+
+@Module({
+  imports:[TypeOrmModule.forFeature([MusicEntity])],
+  controllers: [MusicController],
+  providers: [MusicService,MusicRepository],
+  exports:[MusicRepository]
+})
+export class MusicModule {}
