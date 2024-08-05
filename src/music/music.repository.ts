@@ -49,4 +49,11 @@ export class MusicRepository {
             .where('music.id = :id', { id })
             .getOne()
     }
+
+    async search(query: string) {
+        return await this.muscReposiotry
+            .createQueryBuilder('music')
+            .where('music.name LIKE :query', { query: `%${query}%` })
+            .getMany()
+    }
 }

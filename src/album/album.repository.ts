@@ -42,4 +42,11 @@ export class AlbumRepository {
     remove(id: number) {
         return this.albumRepository.softDelete(id)
     }
+
+    async search(query: string) {
+        return await this.albumRepository
+            .createQueryBuilder('album')
+            .where('album.title LIKE :query', { query: `%${query}%` })
+            .getMany()
+    }
 }
