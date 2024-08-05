@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
-import { MusicEntity } from "./music/entities/music.entity"
+import { MusicEntity } from "./entities/music.entity"
 import { Repository } from "typeorm"
-import { CreateMusicDto } from "./music/dto/create-music.dto"
-import { UpdateMusicDto } from "./music/dto/update-music.dto"
+import { CreateMusicDto } from "./dto/create-music.dto"
+import { UpdateMusicDto } from "./dto/update-music.dto"
 
 @Injectable()
 export class MusicRepository {
