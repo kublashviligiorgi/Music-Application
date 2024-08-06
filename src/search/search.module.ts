@@ -4,9 +4,10 @@ import { SearchController } from './search.controller';
 import { MusicModule } from 'src/music/music.module';
 import { AlbumModule } from 'src/album/album.module';
 import { AuthorModule } from 'src/author/author.module';
+import { PlaylistModule } from 'src/playlist/playlist.module';
 
 @Module({
-  imports: [MusicModule, AlbumModule, AuthorModule],
+  imports: [MusicModule, AlbumModule, AuthorModule, PlaylistModule],
   controllers: [SearchController],
   providers: [SearchService],
 })

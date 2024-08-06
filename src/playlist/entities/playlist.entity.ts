@@ -1,19 +1,21 @@
-import { CreateMusicDto } from "src/music/dto/create-music.dto";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
-export class AuthorEntity {
+export class PlaylistEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'varchar', length: 100 })
-    firstName: string;
+    @Column({ type: 'varchar', length: 50 })
+    name: string;
 
-    @Column({ type: 'varchar', length: 100 })
-    lastName: string;
+    @Column({ type: 'longtext', nullable: true })
+    description: string;
 
-    @Column({ type: 'longtext' })
-    biography: string;
+    @Column()
+    userId: string;
+
+    @Column({ type: 'varchar' })
+    image: string;
 
     @CreateDateColumn()
     createdAt: Date;
@@ -23,4 +25,5 @@ export class AuthorEntity {
 
     @DeleteDateColumn()
     deletedAt: Date;
+
 }

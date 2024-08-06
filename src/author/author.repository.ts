@@ -8,7 +8,7 @@ import { UpdateAuthorDto } from "./dto/update-author.dto";
 
 @Injectable()
 export class AuthorRepository {
-    authorRepository: any;
+  
     constructor(
         @InjectRepository(AuthorEntity)
         private readonly authorRepo: Repository<AuthorEntity>
@@ -46,7 +46,7 @@ export class AuthorRepository {
         return this.authorRepo.softDelete(id)
     }
     async search(query: string) {
-        return await this.authorRepository
+        return await this.authorRepo
             .createQueryBuilder('author')
             .where('author.firstName LIKE :query', { query: `%${query}%` })
             .andWhere('author.lastName LIKE :query', {query: `%${query}%`})

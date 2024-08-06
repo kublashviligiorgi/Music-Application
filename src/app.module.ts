@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AlbumModule } from './album/album.module';
 import { SearchModule } from './search/search.module';
 import { AuthorModule } from './author/author.module';
+import { PlaylistModule } from './playlist/playlist.module';
 
 @Module({
   imports: [
@@ -15,14 +16,15 @@ import { AuthorModule } from './author/author.module';
       host: '127.0.0.1',
       port: 3306,
       username: 'root',
-      password: 'inserts123',
-      database: 'mus-app',
+      password: '',
+      database: 'music-app',
       autoLoadEntities: true,
       synchronize: true
     }),
     AlbumModule,
     SearchModule,
-    AuthorModule],
+    AuthorModule,
+    PlaylistModule],
   controllers: [AppController],
   providers: [AppService],
 })
