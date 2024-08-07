@@ -1,26 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
+import { PlaylistRepository } from './playlist.reposiotry';
 
 @Injectable()
 export class PlaylistService {
+  constructor(private readonly playlistRepository: PlaylistRepository) { }
   create(createPlaylistDto: CreatePlaylistDto) {
-    return this.;
+    return this.playlistRepository.create(createPlaylistDto);
   }
 
   findAll() {
-    return `This action returns all playlist`;
+    return this.playlistRepository.findAll();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} playlist`;
+    return this.playlistRepository.findOne(id);
   }
 
   update(id: number, updatePlaylistDto: UpdatePlaylistDto) {
-    return `This action updates a #${id} playlist`;
+    return this.playlistRepository.update(id, updatePlaylistDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} playlist`;
+    return this.playlistRepository.remove(id);
   }
 }
