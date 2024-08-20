@@ -4,21 +4,38 @@ import { AlbumEntity } from "./entities/album.entity";
 import { Repository } from "typeorm";
 import { CreateAlbumDto } from "./dto/create-album.dto";
 import { UpdateAlbumDto } from "./dto/update-album.dto";
+import { MusicEntity } from "src/music/entities/music.entity";
+import { MusicRepository } from "src/music/music.repository";
 
 @Injectable()
 export class AlbumRepository {
-    constructor(
+    constructor(private readonly musicrepository: MusicRepository,
         @InjectRepository(AlbumEntity)
-        private readonly albumRepository: Repository<AlbumEntity>
-    ) { }
+        private readonly albumRepository: Repository<AlbumEntity>) { }
 
     async create(data: CreateAlbumDto) {
+        const { musics, ...rest } = data
         const newAlbum = new AlbumEntity()
         newAlbum.title = data.title;
         newAlbum.relaseDate = data.relaseDate;
         newAlbum.artistName = data.artistName;
-
-        return await this.albumRepository.save(newAlbum)
+        let arrayOfMusics;
+        if (musics) {
+            arrayOfMusics = await this.musicrepository.createManyMusic(musics)
+        }
+        if (data.musicIds) {
+            for (const musicId of data.musicIds) {
+                const music = new MusicEntity()
+                music.id = musicId
+                arrayOfMusics.push(music)
+            }
+            newAlbum.musics = arrayOfMusics
+        }
+        try {
+            return this.albumRepository.save(newAlbum)
+        } catch (err) {
+            return 'musicId or authorId is not true'
+        }
     }
 
     findAll() {

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { AlbumEntity } from "src/album/entities/album.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class MusicEntity {
@@ -13,6 +14,9 @@ export class MusicEntity {
 
     @Column({ type: 'varchar' })
     url: string;
+
+    @ManyToMany(() => AlbumEntity, (album) => album.musics)
+    albums: AlbumEntity[];
 
     @CreateDateColumn()
     createdAt: Date;

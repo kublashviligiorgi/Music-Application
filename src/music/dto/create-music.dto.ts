@@ -12,6 +12,10 @@ export class CreateMusicDto {
 
     @IsString()
     url: string
+
+    @IsArray()
+    @IsOptional()
+    albumIds: number[]
     
 }
 

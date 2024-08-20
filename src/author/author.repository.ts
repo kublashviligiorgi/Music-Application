@@ -16,11 +16,9 @@ export class AuthorRepository {
 
     create(data: CreateAuthorDto) {
         const newAuthor = new AuthorEntity()
-
         newAuthor.firstName = data.firstName;
         newAuthor.lastName = data.lastName;
         newAuthor.biography = data.biography;
-
         return this.authorRepo.save(newAuthor)
     }
 
