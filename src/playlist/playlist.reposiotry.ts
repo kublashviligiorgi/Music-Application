@@ -13,40 +13,40 @@ export class PlaylistRepository {
         private readonly playlistRepo: Repository<PlaylistEntity>
     ) { }
 
-    create(data: CreatePlaylistDto) {
+    async create(data: CreatePlaylistDto) {
         const newPlaylist = new PlaylistEntity()
         newPlaylist.name = data.name;
         newPlaylist.description = data.description;
         newPlaylist.userId = data.userId;
         newPlaylist.image = data.image;
 
-        return this.playlistRepo.save(newPlaylist)
+        return await this.playlistRepo.save(newPlaylist)
     }
 
-    findAll() {
-        return this.playlistRepo.find()
+    async findAll() {
+        return await this.playlistRepo.find()
     }
 
-    findOne(id: number) {
-        return this.playlistRepo.findOneBy({ id })
+    async findOne(id: number) {
+        return await this.playlistRepo.findOneBy({ id })
     }
 
-    update(id: number, data: UpdatePlaylistDto) {
+    async update(id: number, data: UpdatePlaylistDto) {
         const updatedPlaylist = new PlaylistEntity()
         updatedPlaylist.name = data.name;
         updatedPlaylist.description = data.description;
         updatedPlaylist.userId = data.userId;
         updatedPlaylist.image = data.image;
 
-        return this.playlistRepo.update(id, updatedPlaylist)
+        return await this.playlistRepo.update(id, updatedPlaylist)
     }
 
-    remove(id: number) {
-        return this.playlistRepo.softDelete(id)
+    async remove(id: number) {
+        return await this.playlistRepo.softDelete(id)
     }
 
     async search(query: string) {
-        return this.playlistRepo
+        return await this.playlistRepo
             .createQueryBuilder('playlist')
             .where('playlist.name LIKE :query', { query: `%${query}%` })
             .getMany()

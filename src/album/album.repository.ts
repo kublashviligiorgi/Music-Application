@@ -38,26 +38,26 @@ export class AlbumRepository {
         }
     }
 
-    findAll() {
-        return this.albumRepository.find()
+    async findAll() {
+        return await this.albumRepository.find()
     }
 
-    findOne(id: number) {
-        return this.albumRepository.findOneBy({ id })
+    async findOne(id: number) {
+        return await this.albumRepository.findOneBy({ id })
     }
 
-    update(id: number, data: UpdateAlbumDto) {
+    async update(id: number, data: UpdateAlbumDto) {
         const updatedAlbum = new AlbumEntity()
         updatedAlbum.id = id;
         updatedAlbum.relaseDate = data.relaseDate;
         updatedAlbum.title = data.title;
         updatedAlbum.artistName = data.artistName;
 
-        return this.albumRepository.update(id, updatedAlbum)
+        return await this.albumRepository.update(id, updatedAlbum)
     }
 
-    remove(id: number) {
-        return this.albumRepository.softDelete(id)
+    async remove(id: number) {
+        return await this.albumRepository.softDelete(id)
     }
 
     async search(query: string) {

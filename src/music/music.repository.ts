@@ -42,18 +42,18 @@ export class MusicRepository {
             newMusic.name = musics[i].name;
             newMusic.authorId = musics[i].authorId;
             newMusic.url = musics[i].url;
-            this.muscReposiotry.save(newMusic)
+            await this.muscReposiotry.save(newMusic)
             arrayOfMusics.push(newMusic)
         }
-        return arrayOfMusics
+        return  arrayOfMusics
     }
 
-    findAll() {
-        return this.muscReposiotry.find({ relations: { albums: true } })
+    async findAll() {
+        return await this.muscReposiotry.find({ relations: { albums: true } })
     }
 
-    findOne(id: number) {
-        return this.muscReposiotry
+    async findOne(id: number) {
+        return await this.muscReposiotry
             .createQueryBuilder('music')
             .leftJoinAndSelect('music.albums', 'album')
             .andWhere('music.id = :id', { id })
@@ -75,7 +75,7 @@ export class MusicRepository {
             updatedMusic.albums = arrayOfAlbums
         } try {
             await this.muscReposiotry.save(updatedMusic)
-            return this.muscReposiotry.findOne({ where: { id }, relations: { albums: true } })
+            return await this.muscReposiotry.findOne({ where: { id }, relations: { albums: true } })
         } catch (err) {
             return 'albumId is not true'
         }

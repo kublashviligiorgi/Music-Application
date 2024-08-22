@@ -14,34 +14,34 @@ export class AuthorRepository {
         private readonly authorRepo: Repository<AuthorEntity>
     ) { }
 
-    create(data: CreateAuthorDto) {
+    async create(data: CreateAuthorDto) {
         const newAuthor = new AuthorEntity()
         newAuthor.firstName = data.firstName;
         newAuthor.lastName = data.lastName;
         newAuthor.biography = data.biography;
-        return this.authorRepo.save(newAuthor)
+        return await this.authorRepo.save(newAuthor)
     }
 
-    findAll() {
-        return this.authorRepo.find()
+   async  findAll() {
+        return await this.authorRepo.find()
     }
 
-    findOne(id: number) {
-        return this.authorRepo.findOneBy({ id })
+    async findOne(id: number) {
+        return await this.authorRepo.findOneBy({ id })
     }
 
-    update(id: number, data: UpdateAuthorDto) {
+    async update(id: number, data: UpdateAuthorDto) {
         const updatedAuthor = new AuthorEntity()
 
         updatedAuthor.firstName = data.firstName;
         updatedAuthor.lastName = data.lastName;
         updatedAuthor.biography = data.biography;
 
-        return this.authorRepo.update(id, updatedAuthor)
+        return await this.authorRepo.update(id, updatedAuthor)
     }
 
-    remove(id: number) {
-        return this.authorRepo.softDelete(id)
+   async remove(id: number) {
+        return await this.authorRepo.softDelete(id)
     }
     async search(query: string) {
         return await this.authorRepo
