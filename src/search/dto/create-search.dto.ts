@@ -2,8 +2,8 @@ import { IsString, MinLength } from "class-validator";
 
 
 export class CreateSearchDto {
-    @MinLength(2)
+    @MinLength(1)
     @IsString()
-    query: string;
+    word: string;
 
 }

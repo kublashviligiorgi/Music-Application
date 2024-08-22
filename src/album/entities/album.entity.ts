@@ -12,8 +12,8 @@ export class AlbumEntity {
     @Column({ type: 'varchar' })
     relaseDate: string;
 
-    @Column({ type: 'varchar' })
-    artistName: string;
+    // @Column({ type: 'varchar' })
+    // artistName: string;
 
     @ManyToMany(() => MusicEntity, (music) => music.albums, { cascade: true })
     @JoinTable()

@@ -16,10 +16,10 @@ export class SearchService {
   ) { }
 
   async findAll(data: CreateSearchDto) {
-    const music = await this.musicRepository.search(data.query)
-    const album = await this.albumRepository.search(data.query)
-    const author = await this.authorRepository.search(data.query)
-    const playlist = await this.playlistRepository.search(data.query)
+    const music = await this.musicRepository.search(data.word)
+    const album = await this.albumRepository.search(data.word)
+    const author = await this.authorRepository.search(data.word)
+    const playlist = await this.playlistRepository.search(data.word)
     return { music, album, author, playlist }
   }
 }

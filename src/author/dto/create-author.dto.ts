@@ -1,4 +1,4 @@
-import { IsArray, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateAuthorDto {
     @IsString()
@@ -8,6 +8,7 @@ export class CreateAuthorDto {
     lastName: string;
 
     @IsArray()
+    @IsNotEmpty()
     musics: [];
 
     @IsString()

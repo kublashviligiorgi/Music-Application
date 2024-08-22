@@ -10,7 +10,7 @@ export class CreateAlbumDto {
     @IsString()
     relaseDate: string;
 
-    @IsObject()
+    @IsArray()
     @ValidateNested()
     @Type(() => CreateMusicDto)
     musics: CreateMusicDto[];
