@@ -6,12 +6,8 @@ import { AlbumRepository } from 'src/album/album.repository';
 
 @Injectable()
 export class MusicService {
-  constructor(private readonly musicRepository: MusicRepository,
-    private readonly albumRepository: AlbumRepository) { }
+  constructor(private readonly musicRepository: MusicRepository) { }
   async create(createMusicDto: CreateMusicDto) {
-    if (createMusicDto.albumIds) {
-      await this.albumRepository
-    }
     return this.musicRepository.create(createMusicDto);
   }
 

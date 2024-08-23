@@ -17,7 +17,7 @@ import { PlaylistModule } from './playlist/playlist.module';
       port: 3306,
       username: 'root',
       password: '',
-      database: 'music-app',
+      database: 'mus-app',
       autoLoadEntities: true,
       synchronize: true
     }),

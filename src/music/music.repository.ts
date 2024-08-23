@@ -6,36 +6,46 @@ import { CreateMusicDto } from "./dto/create-music.dto"
 import { UpdateMusicDto } from "./dto/update-music.dto"
 import { AlbumEntity } from "src/album/entities/album.entity"
 import { AlbumRepository } from "src/album/album.repository"
+import { AuthorEntity } from "src/author/entities/author.entity"
 
 @Injectable()
 export class MusicRepository {
     constructor(
-        private readonly albumRepository: AlbumRepository,
         @InjectRepository(MusicEntity)
         private readonly muscReposiotry: Repository<MusicEntity>,
+        @InjectRepository(AlbumEntity)
+        private readonly albumRepo: Repository<AlbumEntity>
     ) { }
 
     async create(data: CreateMusicDto) {
         const newMusic = new MusicEntity()
         newMusic.name = data.name
-        newMusic.authorId = data.authorId
         newMusic.url = data.url
+        let artist: any;
+        if (data.authorId) {
+            for (const artistId of data.authorId) {
+                const author = new AuthorEntity();
+                author.id = artistId;
+                artist = author;
+            }
+            newMusic.authorId = artist
+        }
         const arrayOfAlbums = []
         if (data.albumIds) {
             for (const albumId of data.albumIds) {
-                const album = new AlbumEntity()
-                album.id = albumId
-                arrayOfAlbums.push(album)
+                const album = new AlbumEntity();
+                album.id = albumId;
+                arrayOfAlbums.push(album);
             }
-            newMusic.albums = arrayOfAlbums
+            newMusic.albums = arrayOfAlbums;
         } try {
-            return await this.muscReposiotry.save(newMusic)
+            return await this.muscReposiotry.save(newMusic);
         } catch (err) {
-            return 'albumId is not true'
+            return 'albumId or authorId is not true'
         }
     }
 
-    async createManyMusic(musics) {
+    async createManyMusic(musics: any) {
         const arrayOfMusics = []
         for (let i = 0; i < musics.length; i++) {
             const newMusic = new MusicEntity()
@@ -45,11 +55,11 @@ export class MusicRepository {
             await this.muscReposiotry.save(newMusic)
             arrayOfMusics.push(newMusic)
         }
-        return  arrayOfMusics
+        return arrayOfMusics
     }
 
     async findAll() {
-        return await this.muscReposiotry.find({ relations: { albums: true } })
+        return await this.muscReposiotry.find({ relations: { albums: true, authorId: true } })
     }
 
     async findOne(id: number) {

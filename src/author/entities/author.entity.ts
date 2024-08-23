@@ -1,5 +1,7 @@
+import { AlbumEntity } from "src/album/entities/album.entity";
 import { CreateMusicDto } from "src/music/dto/create-music.dto";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { MusicEntity } from "src/music/entities/music.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class AuthorEntity {
@@ -14,6 +16,12 @@ export class AuthorEntity {
 
     @Column({ type: 'longtext' })
     biography: string;
+
+    @OneToMany(()=>AlbumEntity, (album)=> album.author)
+    albums: AlbumEntity[];
+
+    @OneToMany(()=>MusicEntity, (music)=> music.authorId)
+    musics: MusicEntity[];
 
     @CreateDateColumn()
     createdAt: Date;

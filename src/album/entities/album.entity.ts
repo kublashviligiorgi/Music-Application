@@ -1,5 +1,6 @@
+import { AuthorEntity } from "src/author/entities/author.entity";
 import { MusicEntity } from "src/music/entities/music.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class AlbumEntity {
@@ -14,6 +15,9 @@ export class AlbumEntity {
 
     @Column({ type: 'varchar' })
     artistName: string;
+
+    @ManyToOne(() => AuthorEntity, (author) => author.albums)
+    author: AuthorEntity;
 
     @ManyToMany(() => MusicEntity, (music) => music.albums, { cascade: true })
     @JoinTable()

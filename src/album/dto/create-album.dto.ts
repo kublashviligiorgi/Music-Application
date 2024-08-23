@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsArray, IsObject, IsOptional, IsString, MaxLength, ValidateNested } from "class-validator";
+import { IsArray, IsNumber, IsObject, IsOptional, IsString, MaxLength, ValidateNested } from "class-validator";
 import { CreateMusicDto } from "src/music/dto/create-music.dto";
 
 export class CreateAlbumDto {
@@ -17,6 +17,10 @@ export class CreateAlbumDto {
 
     @IsString()
     artistName: string;
+
+    @IsNumber()
+    @IsOptional()
+    artistId: number[];
 
     @IsArray()
     @IsOptional()
