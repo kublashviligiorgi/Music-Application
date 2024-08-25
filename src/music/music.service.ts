@@ -3,27 +3,75 @@ import { CreateMusicDto } from './dto/create-music.dto';
 import { UpdateMusicDto } from './dto/update-music.dto';
 import { MusicRepository } from './music.repository';
 import { AlbumRepository } from 'src/album/album.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { AlbumEntity } from 'src/album/entities/album.entity';
+import { Repository } from 'typeorm';
+import { AuthorEntity } from 'src/author/entities/author.entity';
+import { MusicEntity } from './entities/music.entity';
 
 @Injectable()
 export class MusicService {
-  constructor(private readonly musicRepository: MusicRepository) { }
+  constructor(private readonly musicRepository: MusicRepository,
+    @InjectRepository(AlbumEntity)
+    private readonly albumRepo: Repository<AlbumEntity>
+  ) { }
   async create(createMusicDto: CreateMusicDto) {
-    return this.musicRepository.create(createMusicDto);
+    const newMusic = new MusicEntity()
+    newMusic.name = createMusicDto.name
+    newMusic.url = createMusicDto.url
+    let artist: any;
+    if (createMusicDto.authorId) {
+      for (const artistId of createMusicDto.authorId) {
+        const author = new AuthorEntity();
+        author.id = artistId;
+        artist = author;
+      }
+      newMusic.authorId = artist
+    }
+    const arrayOfAlbums = []
+    if (createMusicDto.albumIds) {
+      for (const albumId of createMusicDto.albumIds) {
+        const album = new AlbumEntity();
+        album.id = albumId;
+        arrayOfAlbums.push(album);
+      }
+      newMusic.albums = arrayOfAlbums;
+    } try {
+      return this.musicRepository.create(newMusic);
+    } catch (err) {
+      return 'albumId or authorId is not true'
+    }
   }
 
-  findAll() {
-    return this.musicRepository.findAll();
+  async findAll() {
+    return await this.musicRepository.findAll();
   }
 
-  findOne(id: number) {
-    return this.musicRepository.findOne(id);
+  async findOne(id: number) {
+    return await this.musicRepository.findOne(id);
   }
 
-  update(id: number, updateMusicDto: UpdateMusicDto) {
-    return this.musicRepository.update(id, updateMusicDto);
-  }
+  async update(id: number, data: UpdateMusicDto) {
+    const { albumIds, ...rest } = data
+    const updatedMusic = new MusicEntity()
+    updatedMusic.id = id
+    Object.assign(updatedMusic, rest)
+    const arrayOfAlbums = []
+    if (albumIds) {
+        for (const albumId of albumIds) {
+            const album = new AlbumEntity();
+            album.id = albumId;
+            arrayOfAlbums.push(album)
+        }
+        updatedMusic.albums = arrayOfAlbums
+    } try {
+        await this.musicRepository.update(id,updatedMusic)
+    } catch (err) {
+        return 'albumId is not true'
+    }
+}
 
-  remove(id: number) {
-    return this.musicRepository.remove(id);
+  async remove(id: number) {
+    return await this.musicRepository.remove(id);
   }
 }
