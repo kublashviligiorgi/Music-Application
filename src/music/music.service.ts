@@ -11,9 +11,7 @@ import { MusicEntity } from './entities/music.entity';
 
 @Injectable()
 export class MusicService {
-  constructor(private readonly musicRepository: MusicRepository,
-    @InjectRepository(AlbumEntity)
-    private readonly albumRepo: Repository<AlbumEntity>
+  constructor(private readonly musicRepository: MusicRepository
   ) { }
   async create(createMusicDto: CreateMusicDto) {
     const newMusic = new MusicEntity()

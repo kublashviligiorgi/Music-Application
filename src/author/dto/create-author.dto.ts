@@ -15,6 +15,10 @@ export class CreateAuthorDto {
     @IsOptional()
     musicIds: [];
 
+    @IsArray()
+    @IsOptional()
+    albumIds: []
+
     @IsString()
     biography: string;
 }
