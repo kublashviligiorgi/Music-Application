@@ -13,9 +13,6 @@ export class AlbumEntity {
     @Column({ type: 'varchar' })
     relaseDate: string;
 
-    @Column({ type: 'varchar' })
-    artistName: string;
-
     @ManyToOne(() => AuthorEntity, (author) => author.albums)
     author: AuthorEntity;
 

@@ -9,15 +9,15 @@ export class CreateAuthorDto {
 
     @IsArray()
     @IsNotEmpty()
-    musics: Number[];
+    musics: number[];
 
     @IsArray()
     @IsOptional()
-    musicIds: [];
+    musicIds: number[];
 
     @IsArray()
     @IsOptional()
-    albumIds: []
+    albumIds: number[];
 
     @IsString()
     biography: string;

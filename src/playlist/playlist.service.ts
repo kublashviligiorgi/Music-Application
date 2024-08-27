@@ -6,23 +6,23 @@ import { PlaylistRepository } from './playlist.reposiotry';
 @Injectable()
 export class PlaylistService {
   constructor(private readonly playlistRepository: PlaylistRepository) { }
-  create(createPlaylistDto: CreatePlaylistDto) {
-    return this.playlistRepository.create(createPlaylistDto);
+  async create(createPlaylistDto: CreatePlaylistDto) {
+    return await this.playlistRepository.create(createPlaylistDto);
   }
 
-  findAll() {
-    return this.playlistRepository.findAll();
+  async findAll() {
+    return await this.playlistRepository.findAll();
   }
 
-  findOne(id: number) {
-    return this.playlistRepository.findOne(id);
+  async findOne(id: number) {
+    return await this.playlistRepository.findOne(id);
   }
 
-  update(id: number, updatePlaylistDto: UpdatePlaylistDto) {
-    return this.playlistRepository.update(id, updatePlaylistDto);
+  async update(id: number, updatePlaylistDto: UpdatePlaylistDto) {
+    return await this.playlistRepository.update(id, updatePlaylistDto);
   }
 
-  remove(id: number) {
-    return this.playlistRepository.remove(id);
+  async remove(id: number) {
+    return await this.playlistRepository.remove(id);
   }
 }

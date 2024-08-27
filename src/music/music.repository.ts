@@ -50,7 +50,7 @@ export class MusicRepository {
 
     async remove(id: number) {
         await this.musicReposiotry.softDelete(id)
-        return this.musicReposiotry
+        return await this.musicReposiotry
             .createQueryBuilder('music')
             .withDeleted()
             .where('music.id = :id', { id })

@@ -56,18 +56,18 @@ export class MusicService {
     Object.assign(updatedMusic, rest)
     const arrayOfAlbums = []
     if (albumIds) {
-        for (const albumId of albumIds) {
-            const album = new AlbumEntity();
-            album.id = albumId;
-            arrayOfAlbums.push(album)
-        }
-        updatedMusic.albums = arrayOfAlbums
+      for (const albumId of albumIds) {
+        const album = new AlbumEntity();
+        album.id = albumId;
+        arrayOfAlbums.push(album)
+      }
+      updatedMusic.albums = arrayOfAlbums
     } try {
-        await this.musicRepository.update(id,updatedMusic)
+      await this.musicRepository.update(id, updatedMusic)
     } catch (err) {
-        return 'albumId is not true'
+      return 'albumId is not true'
     }
-}
+  }
 
   async remove(id: number) {
     return await this.musicRepository.remove(id);

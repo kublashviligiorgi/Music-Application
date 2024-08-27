@@ -43,6 +43,7 @@ export class AuthorRepository {
     }
 
     async remove(id: number) {
+        await this.authorRepo.softDelete(id)
         return await this.authorRepo
             .createQueryBuilder('author')
             .withDeleted()

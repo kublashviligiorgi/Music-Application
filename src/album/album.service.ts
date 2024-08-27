@@ -13,16 +13,14 @@ import { MusicRepository } from 'src/music/music.repository';
 @Injectable()
 export class AlbumService {
   constructor(
-    @InjectRepository(MusicEntity)
-    private readonly musicRepository: Repository<MusicEntity>,
     private readonly albumRepository: AlbumRepository,
-  private readonly musicRepo: MusicRepository) { }
+    private readonly musicRepo: MusicRepository) { }
+
   async create(createAlbumDto: CreateAlbumDto) {
     const { musics, artistId, ...rest } = createAlbumDto
     const newAlbum = new AlbumEntity()
     newAlbum.title = createAlbumDto.title;
     newAlbum.relaseDate = createAlbumDto.relaseDate;
-    newAlbum.artistName = createAlbumDto.artistName;
     let arrayOfMusics: any[];
     let artist: any;
     if (artistId) {
@@ -51,35 +49,35 @@ export class AlbumService {
     }
   }
 
-  findAll() {
-    return this.albumRepository.findAll();
+  async findAll() {
+    return await this.albumRepository.findAll();
   }
 
-  findOne(id: number) {
-    return this.albumRepository.findOne(id);
+  async findOne(id: number) {
+    return await this.albumRepository.findOne(id);
   }
 
   async update(id: number, updateAlbumDto: UpdateAlbumDto) {
-    const {musicIds, ...rest} = updateAlbumDto;
+    const { musicIds, ...rest } = updateAlbumDto;
     const updatedAlbum = new AlbumEntity()
     updatedAlbum.id = id;
     Object.assign(updatedAlbum, rest)
     const arrayOfMusics = []
     if (musicIds) {
-        for (const albumId of musicIds) {
-            const music = new MusicEntity();
-            music.id = albumId;
-            arrayOfMusics.push(music)
-        }
-        updatedAlbum.musics = arrayOfMusics
+      for (const albumId of musicIds) {
+        const music = new MusicEntity();
+        music.id = albumId;
+        arrayOfMusics.push(music)
+      }
+      updatedAlbum.musics = arrayOfMusics
     } try {
-        await this.albumRepository.update(id, updatedAlbum)
+      await this.albumRepository.update(id, updatedAlbum)
     } catch (err) {
-        return 'musicId is not true'
+      return 'musicId is not true'
     }
   }
 
-  remove(id: number) {
-    return this.albumRepository.remove(id);
+  async remove(id: number) {
+    return await this.albumRepository.remove(id);
   }
 }

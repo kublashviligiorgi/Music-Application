@@ -16,8 +16,11 @@ export class MusicEntity {
     @ManyToMany(() => AlbumEntity, (album) => album.musics)
     albums: AlbumEntity[];
 
+    @Column()
+    authorId:any;
+
     @ManyToOne(()=>AuthorEntity, (author) => author.musics)
-    authorId: AuthorEntity;
+    author: AuthorEntity;
 
     @CreateDateColumn()
     createdAt: Date;

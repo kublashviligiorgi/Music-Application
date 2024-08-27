@@ -20,7 +20,7 @@ export class AuthorEntity {
     @OneToMany(()=>AlbumEntity, (album)=> album.author)
     albums: AlbumEntity[];
 
-    @OneToMany(()=>MusicEntity, (music)=> music.authorId)
+    @OneToMany(()=>MusicEntity, (music)=> music.author)
     musics: MusicEntity[];
 
     @CreateDateColumn()
