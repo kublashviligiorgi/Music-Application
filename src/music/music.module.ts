@@ -12,7 +12,7 @@ import { AuthorModule } from 'src/author/author.module';
 import { AuthorRepository } from 'src/author/author.repository';
 
 @Module({
-  imports: [AlbumModule,TypeOrmModule.forFeature([MusicEntity, AlbumEntity,AuthorEntity])],
+  imports: [TypeOrmModule.forFeature([MusicEntity, AlbumEntity,AuthorEntity])],
   controllers: [MusicController],
   providers: [MusicService, MusicRepository,AlbumRepository,AuthorRepository],
   exports: [MusicRepository]

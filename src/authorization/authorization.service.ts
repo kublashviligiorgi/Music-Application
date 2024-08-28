@@ -3,7 +3,7 @@ import { UserRepository } from "src/user/user.repository"
 import * as bcrypt from "bcrypt";
 
 @Injectable()
-export class AuthService {
+export class AuthorizationService {
   constructor(private readonly userRepository: UserRepository) { }
 
   async login(email: string, password: string, phoneNumber: string) {
