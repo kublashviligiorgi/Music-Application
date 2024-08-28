@@ -14,13 +14,13 @@ import { PlaylistModule } from './playlist/playlist.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '127.0.0.1',
+      host: 'database-1.chgcq8aqyf7p.eu-north-1.rds.amazonaws.com',
       port: 3306,
-      username: 'root',
-      password: 'inserts123',
-      database: 'musicAplicaton',
+      username: 'admin',
+      password: 'Qwerty12345',
+      database: 'musicApplication',
       autoLoadEntities: true,
-      synchronize: true
+      synchronize: true 
     }),
     MusicModule,
     UserModule, 
