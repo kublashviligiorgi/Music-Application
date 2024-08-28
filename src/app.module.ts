@@ -9,16 +9,17 @@ import { AlbumModule } from './album/album.module';
 import { SearchModule } from './search/search.module';
 import { AuthorModule } from './author/author.module';
 import { PlaylistModule } from './playlist/playlist.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
+  imports: [ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'database-1.chgcq8aqyf7p.eu-north-1.rds.amazonaws.com',
-      port: 3306,
-      username: 'admin',
-      password: 'Qwerty12345',
-      database: 'musicApplication',
+      host: process.env.DATABASE_HOST,
+      port: +process.env.DATABASE_PORT,
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DARABASE_NAME,
       autoLoadEntities: true,
       synchronize: true 
     }),
