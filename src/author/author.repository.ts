@@ -15,11 +15,7 @@ export class AuthorRepository {
     constructor(
         // private readonly albumRepository: AlbumRepository,
         @InjectRepository(AuthorEntity)
-        private readonly authorRepo: Repository<AuthorEntity>,
-        @InjectRepository(MusicEntity)
-        private readonly musicRepo: Repository<MusicEntity>
-
-    ) { }
+        private readonly authorRepo: Repository<AuthorEntity>) { }
 
     async create(newAuthor: object) {
         return await this.authorRepo.save(newAuthor)
