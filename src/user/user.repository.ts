@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { User } from "./entities/user.entity";
+import { UserEntity } from "./entities/user.entity";
 import { CreateUserDto } from "./dto/create-user.dto";
 import * as bcrypt from "bcrypt";
 import { IsPhoneNumber } from "class-validator";
 
 @Injectable()
 export class UserRepository {
-    constructor(@InjectRepository(User)
-    private readonly userRepository: Repository<User>) { }
+    constructor(@InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>) { }
 
     async create(createUserDto: CreateUserDto) {
         const newUser = this.userRepository.create(createUserDto)

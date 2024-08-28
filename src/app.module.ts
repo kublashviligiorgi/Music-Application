@@ -12,17 +12,17 @@ import { PlaylistModule } from './playlist/playlist.module';
 
 @Module({
   imports: [
-    MusicModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: '127.0.0.1',
       port: 3306,
       username: 'root',
-      password: '',
-      database: 'mus-app',
+      password: 'inserts123',
+      database: 'musicAplicaton',
       autoLoadEntities: true,
       synchronize: true
     }),
+    MusicModule,
     UserModule, 
     AuthorizationModule,
     AlbumModule,

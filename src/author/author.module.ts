@@ -10,7 +10,7 @@ import { MusicEntity } from 'src/music/entities/music.entity';
 import { AlbumModule } from 'src/album/album.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AuthorEntity,AlbumEntity,MusicEntity]),AlbumModule],
+  imports: [TypeOrmModule.forFeature([AuthorEntity,AlbumEntity,MusicEntity])],
   controllers: [AuthorController],
   providers: [AuthorService,AuthorRepository,MusicRepository],
   exports:[AuthorRepository]
