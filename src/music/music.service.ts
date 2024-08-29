@@ -17,14 +17,14 @@ export class MusicService {
     const newMusic = new MusicEntity()
     newMusic.name = createMusicDto.name
     newMusic.url = createMusicDto.url
-    let artist: any;
+    let arrayOfArtist: any[];
     if (createMusicDto.authorId) {
       for (const artistId of createMusicDto.authorId) {
         const author = new AuthorEntity();
         author.id = artistId;
-        artist = author;
+        arrayOfArtist.push(author);
       }
-      newMusic.authorId = artist
+      newMusic.authorId = arrayOfArtist
     }
     const arrayOfAlbums = []
     if (createMusicDto.albumIds) {

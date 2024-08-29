@@ -7,7 +7,7 @@ export class CreateMusicDto {
     @IsString()
     name: string
 
-    @IsNumber()
+    @IsArray()
     authorId: number[]
 
     @IsString()
