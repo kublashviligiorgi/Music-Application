@@ -20,11 +20,11 @@ export class MusicEntity {
     @ManyToMany(() => PlaylistEntity, (playlist) => playlist.musics)
     playlists: PlaylistEntity[];
 
-    @ManyToOne(()=>AuthorEntity, (author) => author.musics)
-    author: AuthorEntity;
+    @ManyToMany(()=>AuthorEntity, (author) => author.musics)
+    authors: AuthorEntity[];
 
-    @Column()
-    authorId:any;
+    // @Column()
+    // authorId:any;
 
     @CreateDateColumn()
     createdAt: Date;

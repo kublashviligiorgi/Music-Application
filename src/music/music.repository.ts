@@ -23,7 +23,7 @@ export class MusicRepository {
         for (let i = 0; i < musics.length; i++) {
             const newMusic = new MusicEntity()
             newMusic.name = musics[i].name;
-            newMusic.authorId = musics[i].authorId;
+            newMusic.authors = musics[i].authorId;
             newMusic.url = musics[i].url;
             await this.musicReposiotry.save(newMusic)
             arrayOfMusics.push(newMusic)
@@ -32,7 +32,7 @@ export class MusicRepository {
     }
 
     async findAll() {
-        return await this.musicReposiotry.find({ relations: { albums: true, authorId: true } })
+        return await this.musicReposiotry.find({ relations: { albums: true, authors: true } })
     }
 
     async findOne(id: number) {

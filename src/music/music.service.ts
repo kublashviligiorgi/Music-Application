@@ -8,6 +8,7 @@ import { AlbumEntity } from 'src/album/entities/album.entity';
 import { Repository } from 'typeorm';
 import { AuthorEntity } from 'src/author/entities/author.entity';
 import { MusicEntity } from './entities/music.entity';
+import { log } from 'console';
 
 @Injectable()
 export class MusicService {
@@ -17,14 +18,16 @@ export class MusicService {
     const newMusic = new MusicEntity()
     newMusic.name = createMusicDto.name
     newMusic.url = createMusicDto.url
-    let arrayOfArtist: any[];
+    let arrayOfArtist = [];
+    // console.log(createMusicDto.authorId);
+    
     if (createMusicDto.authorId) {
       for (const artistId of createMusicDto.authorId) {
         const author = new AuthorEntity();
         author.id = artistId;
         arrayOfArtist.push(author);
-      }
-      newMusic.authorId = arrayOfArtist
+      } 
+      newMusic.authors = arrayOfArtist
     }
     const arrayOfAlbums = []
     if (createMusicDto.albumIds) {
@@ -57,7 +60,7 @@ export class MusicService {
     const arrayOfAlbums = []
     if (albumIds) {
       for (const albumId of albumIds) {
-        const album = new AlbumEntity();
+        const album = new AlbumEntity(); 
         album.id = albumId;
         arrayOfAlbums.push(album)
       }
