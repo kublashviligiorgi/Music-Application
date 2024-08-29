@@ -8,6 +8,7 @@ export class CreateMusicDto {
     name: string
 
     @IsArray()
+    @IsOptional()
     authorId: number[]
 
     @IsString()
