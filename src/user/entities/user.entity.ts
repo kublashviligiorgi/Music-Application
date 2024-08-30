@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { PlaylistEntity } from "src/playlist/entities/playlist.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class UserEntity {
@@ -13,6 +14,9 @@ export class UserEntity {
 
     @Column({ type: 'varchar' })
     password: string;
+
+    @OneToMany(()=>PlaylistEntity, (playlist)=> playlist.userId)
+    playlists: PlaylistEntity[];
 
     @CreateDateColumn()
     createdAt: Date;
