@@ -13,7 +13,7 @@ export class PlaylistRepository {
         private readonly playlistRepo: Repository<PlaylistEntity>
     ) { }
 
-    async create(newPlaylist: object) {
+    async create(newPlaylist: CreatePlaylistDto) {
         return await this.playlistRepo.save(newPlaylist)
     }
 
