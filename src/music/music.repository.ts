@@ -14,8 +14,8 @@ export class MusicRepository {
         @InjectRepository(MusicEntity)
         private readonly musicReposiotry: Repository<MusicEntity>) { }
 
-    async create(newMusic:object) {
-         return await this.musicReposiotry.save(newMusic)
+    async create(newMusic: object) {
+        return await this.musicReposiotry.save(newMusic)
     }
 
     async createManyMusic(musics: any) {
@@ -43,9 +43,9 @@ export class MusicRepository {
             .getOne()
     }
 
-    async update(id:number,updatedMusic:object) {
-            await this.musicReposiotry.save(updatedMusic)
-            return await this.musicReposiotry.findOne({ where: { id }, relations: { albums: true } })
+    async update(id: number, updatedMusic: object) {
+        await this.musicReposiotry.save(updatedMusic)
+        return await this.musicReposiotry.findOne({ where: { id }, relations: { albums: true } })
     }
 
     async remove(id: number) {

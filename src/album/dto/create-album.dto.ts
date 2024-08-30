@@ -15,7 +15,7 @@ export class CreateAlbumDto {
     @Type(() => CreateMusicDto)
     musics: CreateMusicDto[];
 
-    @IsNumber()
+    @IsArray()
     @IsOptional()
     artistId: number[];
 

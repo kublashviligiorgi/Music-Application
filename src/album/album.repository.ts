@@ -35,7 +35,8 @@ export class AlbumRepository {
     async update(id: number, updatedAlbum: object) {
 
         await this.albumRepository.update(id, updatedAlbum)
-        return await this.albumRepository.findOne({ where: { id }, relations: { musics: true } })
+       return await this.albumRepository.findOne({ where: { id }, relations: { musics: true } });
+        
     }
 
     async remove(id: number) {
