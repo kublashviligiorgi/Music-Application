@@ -38,7 +38,7 @@ export class MusicService {
       }
       newMusic.albums = arrayOfAlbums;
     } try {
-      return this.musicRepository.create(newMusic);
+      return await this.musicRepository.create(newMusic);
     } catch (err) {
       return 'albumId or authorId is not true'
     }

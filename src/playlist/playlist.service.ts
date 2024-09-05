@@ -23,7 +23,7 @@ export class PlaylistService {
       }
       newPlaylist.musics = arrayOfMusics;
     } try {
-      return this.playlistRepository.create(newPlaylist);
+      return await this.playlistRepository.create(newPlaylist);
     } catch (err) {
       return 'musicId is not true'
     }
