@@ -15,12 +15,11 @@ export class MusicService {
   constructor(private readonly musicRepository: MusicRepository
   ) { }
   async create(createMusicDto: CreateMusicDto) {
+    try {
     const newMusic = new MusicEntity()
     newMusic.name = createMusicDto.name
     newMusic.url = createMusicDto.url
     let arrayOfArtist = [];
-    // console.log(createMusicDto.authorId);
-    
     if (createMusicDto.authorId) {
       for (const artistId of createMusicDto.authorId) {
         const author = new AuthorEntity();
@@ -37,7 +36,7 @@ export class MusicService {
         arrayOfAlbums.push(album);
       }
       newMusic.albums = arrayOfAlbums;
-    } try {
+    } 
       return await this.musicRepository.create(newMusic);
     } catch (err) {
       return 'albumId or authorId is not true'
@@ -53,6 +52,7 @@ export class MusicService {
   }
 
   async update(id: number, data: UpdateMusicDto) {
+    try {
     const { albumIds, ...rest } = data
     const updatedMusic = new MusicEntity()
     updatedMusic.id = id
@@ -65,7 +65,7 @@ export class MusicService {
         arrayOfAlbums.push(album)
       }
       updatedMusic.albums = arrayOfAlbums
-    } try {
+    } 
       await this.musicRepository.update(id, updatedMusic)
     } catch (err) {
       return 'albumId is not true'

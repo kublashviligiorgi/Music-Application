@@ -9,6 +9,7 @@ import { MusicEntity } from 'src/music/entities/music.entity';
 export class PlaylistService {
   constructor(private readonly playlistRepository: PlaylistRepository) { }
   async create(createPlaylistDto: CreatePlaylistDto) {
+    try {
     const newPlaylist = new PlaylistEntity()
     newPlaylist.name = createPlaylistDto.name;
     newPlaylist.description = createPlaylistDto.description;
@@ -22,7 +23,7 @@ export class PlaylistService {
         arrayOfMusics.push(music);
       }
       newPlaylist.musics = arrayOfMusics;
-    } try {
+    } 
       return await this.playlistRepository.create(newPlaylist);
     } catch (err) {
       return 'musicId is not true'
@@ -38,7 +39,12 @@ export class PlaylistService {
   }
 
   async update(id: number, updatePlaylistDto: UpdatePlaylistDto) {
-    return await this.playlistRepository.update(id, updatePlaylistDto);
+    const updatedPlaylist = new PlaylistEntity()
+    updatedPlaylist.name = updatePlaylistDto.name;
+    updatedPlaylist.description = updatePlaylistDto.description;
+    updatedPlaylist.userId = +updatePlaylistDto.userId;
+    updatedPlaylist.image = updatePlaylistDto.image;
+    return await this.playlistRepository.update(id, updatedPlaylist);
   }
 
   async remove(id: number) {

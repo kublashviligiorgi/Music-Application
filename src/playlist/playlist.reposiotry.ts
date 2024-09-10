@@ -25,13 +25,7 @@ export class PlaylistRepository {
         return await this.playlistRepo.findOneBy({ id })
     }
 
-    async update(id: number, data: UpdatePlaylistDto) {
-        const updatedPlaylist = new PlaylistEntity()
-        updatedPlaylist.name = data.name;
-        updatedPlaylist.description = data.description;
-        updatedPlaylist.userId = +data.userId;
-        updatedPlaylist.image = data.image;
-
+    async update(id: number, updatedPlaylist: object) {
         return await this.playlistRepo.update(id, updatedPlaylist)
     }
 

@@ -12,6 +12,7 @@ import { Any } from 'typeorm';
 export class AuthorService {
   constructor(private readonly authorReposiotry: AuthorRepository) { }
   async create(createAuthorDto: CreateAuthorDto) {
+    try {
     const newAuthor = new AuthorEntity();
     newAuthor.firstName = createAuthorDto.firstName;
     newAuthor.lastName = createAuthorDto.lastName;
@@ -33,7 +34,7 @@ export class AuthorService {
         arrayOfAlbums.push(album);
       }
       newAuthor.albums = arrayOfAlbums;
-    } try {
+    } 
       return await this.authorReposiotry.create(newAuthor);
     } catch (err) {
       return 'albumId or musicId is not true'
@@ -49,6 +50,7 @@ export class AuthorService {
   }
 
   async update(id: number, updateAuthorDto: UpdateAuthorDto) {
+    try {
     const { albumIds, musicIds, ...rest } = updateAuthorDto;
     const updatedAuthor = new AuthorEntity();
     updatedAuthor.id = id;
@@ -70,7 +72,7 @@ export class AuthorService {
         arrayOfAlbums.push(album);
       }
       updatedAuthor.albums = arrayOfAlbums;
-    } try {
+    } 
       await this.authorReposiotry.update(id, updatedAuthor);
     } catch (err) {
       return 'albumId or musicId is not true'
