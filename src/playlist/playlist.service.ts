@@ -12,7 +12,7 @@ export class PlaylistService {
     const newPlaylist = new PlaylistEntity()
     newPlaylist.name = createPlaylistDto.name;
     newPlaylist.description = createPlaylistDto.description;
-    newPlaylist.userId = createPlaylistDto.userId;
+    newPlaylist.userId = +createPlaylistDto.userId;
     newPlaylist.image = createPlaylistDto.image;
     const arrayOfMusics = []
     if (createPlaylistDto.musicIds) {

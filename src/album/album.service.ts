@@ -17,11 +17,12 @@ export class AlbumService {
     private readonly musicRepo: MusicRepository) { }
 
   async create(createAlbumDto: CreateAlbumDto) {
+    // try{
     const { musics, artistId, ...rest } = createAlbumDto
     const newAlbum = new AlbumEntity()
     newAlbum.title = createAlbumDto.title;
     newAlbum.relaseDate = createAlbumDto.relaseDate;
-    let arrayOfMusics: any[];
+    let arrayOfMusics: any[] = [];
     let artist: any;
     if (artistId) {
       for (const artistsId of artistId) {
@@ -32,21 +33,24 @@ export class AlbumService {
       newAlbum.author = artist
     }
     if (musics) {
+      console.log(musics , 'musicxs')
       arrayOfMusics = await this.musicRepo.createManyMusic(musics)
     }
     if (createAlbumDto.musicIds) {
       for (const musicId of createAlbumDto.musicIds) {
+        console.log(createAlbumDto.musicIds , 'musicsds')
+        console.log(musicId , 'musicsid')
         const music = new MusicEntity()
         music.id = musicId
         arrayOfMusics.push(music)
       }
       newAlbum.musics = arrayOfMusics
     }
-    try {
+    
       return await this.albumRepository.create(newAlbum)
-    } catch (err) {
+    // } catch (err) {
       return 'musicId or authorId is not true'
-    }
+    // }
   }
 
   async findAll() {

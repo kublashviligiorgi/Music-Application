@@ -15,7 +15,7 @@ export class UserEntity {
     @Column({ type: 'varchar' })
     password: string;
 
-    @OneToMany(()=>PlaylistEntity, (playlist)=> playlist.userId)
+    @OneToMany(()=>PlaylistEntity, (playlist)=> playlist.userId , {nullable: true})
     playlists: PlaylistEntity[];
 
     @CreateDateColumn()

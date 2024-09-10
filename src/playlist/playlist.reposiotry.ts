@@ -13,7 +13,7 @@ export class PlaylistRepository {
         private readonly playlistRepo: Repository<PlaylistEntity>
     ) { }
 
-    async create(newPlaylist: CreatePlaylistDto) {
+    async create(newPlaylist: PlaylistEntity) {
         return await this.playlistRepo.save(newPlaylist)
     }
 
@@ -29,7 +29,7 @@ export class PlaylistRepository {
         const updatedPlaylist = new PlaylistEntity()
         updatedPlaylist.name = data.name;
         updatedPlaylist.description = data.description;
-        updatedPlaylist.userId = data.userId;
+        updatedPlaylist.userId = +data.userId;
         updatedPlaylist.image = data.image;
 
         return await this.playlistRepo.update(id, updatedPlaylist)

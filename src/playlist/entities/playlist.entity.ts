@@ -13,9 +13,10 @@ export class PlaylistEntity {
     @Column({ type: 'longtext', nullable: true })
     description: string;
 
-    @Column()
-    userId: string;
+    @Column({nullable: true})
+    userId: number;
 
+    
     @ManyToOne(()=>UserEntity, (user)=> user.playlists)
     user: UserEntity;
 
