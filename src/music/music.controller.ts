@@ -1,17 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { MusicService } from './music.service';
 import { CreateMusicDto } from './dto/create-music.dto';
 import { UpdateMusicDto } from './dto/update-music.dto';
+import { UserGuard } from 'src/authorization/guards/user.gard';
+import { Public } from 'src/authorization/decorators/public.decorator';
 
 @Controller('music')
 export class MusicController {
   constructor(private readonly musicService: MusicService) {}
-
   @Post()
   create(@Body() createMusicDto: CreateMusicDto) {
     return this.musicService.create(createMusicDto);
   }
-
+  @Public()
   @Get()
   findAll() {
     return this.musicService.findAll();

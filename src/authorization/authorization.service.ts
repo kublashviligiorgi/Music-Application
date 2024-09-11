@@ -15,25 +15,25 @@ export class AuthorizationService {
   async login(data: CreateAuthorizationDto) {
     const user = await (this.userRepository.findOneWithEmail(data.email) || this.userRepository.findOneWithPhoneNumber(data.phoneNumber))
 
-    if(!user) {
+    if (!user) {
       throw new UnauthorizedException('Accsses Denide');
-    } 
+    }
 
     const isPasswordCorrect = await bcrypt.compare(data.password, user.password)
 
-    if(!isPasswordCorrect) {
+    if (!isPasswordCorrect) {
       throw new UnauthorizedException('Accsses Denide')
     }
 
-    const payload = await this.jwtService.signAsync({
-              id: user.id,
-              name: user.name,
+    const jwtToken = await this.jwtService.signAsync({
+      id: user.id,
+      name: user.name,
+      role: user.roles
     })
-      
-      const {password, ...rest} = user
 
-      return payload
-      
-    
+
+    return { jwtToken }
+
+
   }
 }

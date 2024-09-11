@@ -42,7 +42,13 @@ export class UserRepository {
     async findOneWithEmail(email: string) {
         return await this.userRepository.findOne({
             where: { email: email },
-            select: { password: true, email: true }
+            select: { 
+                id: true,
+                password: true, 
+                email: true, 
+                roles: true,
+                name: true
+            }
         })
     }
 

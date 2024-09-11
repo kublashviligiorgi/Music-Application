@@ -1,3 +1,4 @@
+import { RoleEnum } from "src/authorization/enums/roles.enum";
 import { PlaylistEntity } from "src/playlist/entities/playlist.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -9,17 +10,20 @@ export class UserEntity {
     @Column({ type: 'varchar' })
     name: string;
 
-    @Column({unique: true })
+    @Column({ unique: true })
     email: string;
 
-    @Column({type: "varchar"})
+    @Column({ type: "varchar" })
     phoneNumber: string;
 
-    @Column({ type: 'varchar' })
+    @Column({ type: 'varchar', select: false})
     password: string;
 
-    @OneToMany(()=>PlaylistEntity, (playlist)=> playlist.userId , {nullable: true})
+    @OneToMany(() => PlaylistEntity, (playlist) => playlist.userId, { nullable: true })
     playlists: PlaylistEntity[];
+
+    @Column({ default: RoleEnum.user, type: 'enum', enum: RoleEnum })
+    roles: RoleEnum
 
     @CreateDateColumn()
     createdAt: Date;
