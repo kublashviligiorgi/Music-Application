@@ -6,9 +6,9 @@ import { CreateAuthorizationDto } from "./dto/create-authorization.dto";
 export class AuthorizationController {
   constructor(private readonly authService: AuthorizationService) { }
 
-  @Post()
+  @Post('login')
   create(@Body() createAuthDto: CreateAuthorizationDto) {
-    return this.authService.login(createAuthDto.email, createAuthDto.password, createAuthDto.phoneNumber);
+    return this.authService.login(createAuthDto);
   } 
 }
 
