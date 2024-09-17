@@ -10,6 +10,7 @@ import { SearchModule } from './search/search.module';
 import { AuthorModule } from './author/author.module';
 import { PlaylistModule } from './playlist/playlist.module';
 import { ConfigModule } from '@nestjs/config';
+import { ListenersModule } from './listeners/listeners.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -29,7 +30,8 @@ import { ConfigModule } from '@nestjs/config';
     AlbumModule,
     SearchModule,
     AuthorModule,
-    PlaylistModule],
+    PlaylistModule,
+    ListenersModule],
   controllers: [AppController],
   providers: [AppService],
 })

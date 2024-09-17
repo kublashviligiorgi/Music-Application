@@ -9,10 +9,13 @@ import { Repository } from 'typeorm';
 import { AuthorEntity } from 'src/author/entities/author.entity';
 import { MusicEntity } from './entities/music.entity';
 import { log } from 'console';
+import { ListenerRepository } from 'src/listeners/listeners.repository';
+import { CreateListenerDto } from 'src/listeners/dto/create-listener.dto';
 
 @Injectable()
 export class MusicService {
-  constructor(private readonly musicRepository: MusicRepository
+  constructor(private readonly musicRepository: MusicRepository,
+    private readonly listenerRepository:ListenerRepository
   ) { }
   async create(createMusicDto: CreateMusicDto) {
     try {
@@ -48,6 +51,7 @@ export class MusicService {
   }
 
   async findOne(id: number) {
+    await this.listenerRepository.create(data:CreateListenerDto)
     return await this.musicRepository.findOne(id);
   }
 

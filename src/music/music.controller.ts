@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MusicService } from './music.service';
 import { CreateMusicDto } from './dto/create-music.dto';
 import { UpdateMusicDto } from './dto/update-music.dto';
+import { CreateListenerDto } from 'src/listeners/dto/create-listener.dto';
 
 @Controller('music')
 export class MusicController {
@@ -18,8 +19,8 @@ export class MusicController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.musicService.findOne(+id);
+  findOne(@Param('id') id: string, @Body() data: CreateListenerDto) {
+    return this.musicService.findOne(+id,data);
   }
 
   @Patch(':id')
