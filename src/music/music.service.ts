@@ -14,8 +14,7 @@ import { CreateListenerDto } from 'src/listeners/dto/create-listener.dto';
 
 @Injectable()
 export class MusicService {
-  constructor(private readonly musicRepository: MusicRepository,
-    private readonly listenerRepository:ListenerRepository
+  constructor(private readonly musicRepository: MusicRepository
   ) { }
   async create(createMusicDto: CreateMusicDto) {
     try {
@@ -51,7 +50,6 @@ export class MusicService {
   }
 
   async findOne(id: number) {
-    await this.listenerRepository.create(data:CreateListenerDto)
     return await this.musicRepository.findOne(id);
   }
 

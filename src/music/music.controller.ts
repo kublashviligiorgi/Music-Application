@@ -19,8 +19,8 @@ export class MusicController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Body() data: CreateListenerDto) {
-    return this.musicService.findOne(+id,data);
+  findOne(@Param('id') id: string) {
+    return this.musicService.findOne(+id);
   }
 
   @Patch(':id')
