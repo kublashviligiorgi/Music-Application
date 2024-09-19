@@ -1,23 +1,39 @@
-import { Injectable } from "@nestjs/common"
+import { Injectable, UnauthorizedException } from "@nestjs/common"
 import { UserRepository } from "src/user/user.repository"
 import * as bcrypt from "bcrypt";
+import { JwtService } from "@nestjs/jwt";
+import { log } from "console";
+import { CreateAuthorizationDto } from "./dto/create-authorization.dto";
 
 @Injectable()
 export class AuthorizationService {
-  constructor(private readonly userRepository: UserRepository) { }
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly jwtService: JwtService
+  ) { }
 
-  async login(email: string, password: string, phoneNumber: string) {
-    const user = await (this.userRepository.findOneWithEmail(email) || this.userRepository.findOneWithPhoneNumber(phoneNumber))
-    if (user) {
-      if (await bcrypt.compare(password, user.password)) {
-        const { password, ...res } = user
-        return res
-      } else {
-        return 'პაროლი არასწორია'
-      }
-    } else {
-      return 'იმეილი არასწორია'
+  async login(data: CreateAuthorizationDto) {
+    const user = await (this.userRepository.findOneWithEmail(data.email) || this.userRepository.findOneWithPhoneNumber(data.phoneNumber))
+
+    if (!user) {
+      throw new UnauthorizedException('Accsses Denide');
     }
+
+    const isPasswordCorrect = await bcrypt.compare(data.password, user.password)
+
+    if (!isPasswordCorrect) {
+      throw new UnauthorizedException('Accsses Denide')
+    }
+
+    const jwtToken = await this.jwtService.signAsync({
+      id: user.id,
+      name: user.name,
+      role: user.roles
+    })
+
+
+    return { jwtToken }
+
 
   }
 }

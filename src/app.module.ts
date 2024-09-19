@@ -10,6 +10,9 @@ import { SearchModule } from './search/search.module';
 import { AuthorModule } from './author/author.module';
 import { PlaylistModule } from './playlist/playlist.module';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './authorization/guards/auth.gard';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -23,6 +26,11 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadEntities: true, 
       synchronize: true 
     }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRET,
+      signOptions: { expiresIn: '60d' },
+    }),
     MusicModule,
     UserModule, 
     AuthorizationModule,
@@ -31,6 +39,9 @@ import { ConfigModule } from '@nestjs/config';
     AuthorModule,
     PlaylistModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,{
+    provide: APP_GUARD,
+    useClass: AuthGuard,
+  }],
 })
 export class AppModule { }
