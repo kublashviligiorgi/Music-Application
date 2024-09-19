@@ -16,13 +16,11 @@ export class AuthorController {
     return this.authorService.create(createAuthorDto);
   }
 
-  @Public()
   @Get()
   findAll() {
     return this.authorService.findAll();
   }
 
-  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.authorService.findOne(+id);

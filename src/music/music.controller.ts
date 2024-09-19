@@ -16,14 +16,11 @@ export class MusicController {
     return this.musicService.create(createMusicDto);
   }
 
-
-  @Public()
   @Get()
   findAll() {
     return this.musicService.findAll();
   }
 
-  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.musicService.findOne(+id);

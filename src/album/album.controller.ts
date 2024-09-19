@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AlbumService } from './album.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
-import { Public } from 'src/authorization/decorators/public.decorator';
 import { RoleEnum } from 'src/authorization/enums/roles.enum';
 import { Roles } from 'src/authorization/decorators/roles.decorator';
 
@@ -16,13 +15,11 @@ export class AlbumController {
     return this.albumService.create(createAlbumDto);
   }
   
-  @Public()
   @Get()
   findAll() {
     return this.albumService.findAll();
   }
 
-  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.albumService.findOne(+id);
