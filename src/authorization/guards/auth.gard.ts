@@ -5,7 +5,7 @@ import { Request } from 'express';
 import { IS_PUBLIC_KEY } from "../decorators/public.decorator";
 import { ROLES_KEY } from "../decorators/roles.decorator";
 @Injectable()
-export class UserGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
     constructor(
         private readonly jwtService: JwtService,
         private readonly reflector: Reflector,

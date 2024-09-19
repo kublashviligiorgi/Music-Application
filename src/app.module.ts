@@ -12,7 +12,7 @@ import { PlaylistModule } from './playlist/playlist.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
-import { UserGuard } from './authorization/guards/user.gard';
+import { AuthGuard } from './authorization/guards/auth.gard';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -41,7 +41,7 @@ import { UserGuard } from './authorization/guards/user.gard';
   controllers: [AppController],
   providers: [AppService,{
     provide: APP_GUARD,
-    useClass: UserGuard,
+    useClass: AuthGuard,
   }],
 })
 export class AppModule { }
