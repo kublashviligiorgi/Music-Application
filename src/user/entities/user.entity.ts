@@ -1,4 +1,5 @@
 import { RoleEnum } from "src/authorization/enums/roles.enum";
+import { ListenerEntity } from "src/listeners/entities/listener.entity";
 import { PlaylistEntity } from "src/playlist/entities/playlist.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -16,11 +17,15 @@ export class UserEntity {
     @Column({ type: "varchar" })
     phoneNumber: string;
 
-    @Column({ type: 'varchar', select: false})
+    @Column({ type: 'varchar', select: false })
     password: string;
 
     @OneToMany(() => PlaylistEntity, (playlist) => playlist.userId, { nullable: true })
     playlists: PlaylistEntity[];
+
+    @Column()
+    @OneToMany(() => ListenerEntity, (listener) => listener.user)
+    listeners: ListenerEntity[];
 
     @Column({ default: RoleEnum.user, type: 'enum', enum: RoleEnum })
     roles: RoleEnum

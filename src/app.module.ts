@@ -13,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './authorization/guards/auth.gard';
+import { ListenersModule } from './listeners/listeners.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -24,7 +25,7 @@ import { AuthGuard } from './authorization/guards/auth.gard';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       autoLoadEntities: true, 
-      synchronize: true 
+      synchronize: true
     }),
     JwtModule.register({
       global: true,
@@ -37,11 +38,12 @@ import { AuthGuard } from './authorization/guards/auth.gard';
     AlbumModule,
     SearchModule,
     AuthorModule,
-    PlaylistModule],
+    PlaylistModule,
+    ListenersModule],
   controllers: [AppController],
   providers: [AppService,{
     provide: APP_GUARD,
     useClass: AuthGuard,
   }],
 })
-export class AppModule { }
+export class AppModule { }  
