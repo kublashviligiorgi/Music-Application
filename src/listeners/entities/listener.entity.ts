@@ -1,7 +1,8 @@
 import { MusicEntity } from "src/music/entities/music.entity";
 import { UserEntity } from "src/user/entities/user.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
+@Entity()
 export class ListenerEntity {
     
     @PrimaryGeneratedColumn()
