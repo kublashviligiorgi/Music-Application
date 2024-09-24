@@ -24,7 +24,6 @@ export class MusicEntity {
     @ManyToMany(()=>AuthorEntity, (author) => author.musics)
     authors: AuthorEntity[];
 
-    @Column()
     @OneToMany(()=>ListenerEntity, (listener)=> listener.music)
     listeners: ListenerEntity[]; 
 

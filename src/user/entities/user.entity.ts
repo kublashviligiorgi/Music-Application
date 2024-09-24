@@ -23,7 +23,6 @@ export class UserEntity {
     @OneToMany(() => PlaylistEntity, (playlist) => playlist.userId, { nullable: true })
     playlists: PlaylistEntity[];
 
-    @Column()
     @OneToMany(() => ListenerEntity, (listener) => listener.user)
     listeners: ListenerEntity[];
 

@@ -8,15 +8,18 @@ import { CreateListenerDto } from "./dto/create-listener.dto"
 export class ListenersRepository {
     constructor(
         @InjectRepository(ListenerEntity)
-        private readonly listenerRepository: Repository<ListenerEntity>,
+        private readonly listenersRepository: Repository<ListenerEntity>,
     ) { }
 
-    async create(createListenerDto: CreateListenerDto,userId:number) {
-        const newListener = new ListenerEntity()
-        newListener.musicId=createListenerDto.musicId
-        newListener.userId=userId
-        console.log(newListener);
-        
-        return await this.listenerRepository.save(newListener)
+    async create(newListener: object) {
+        return await this.listenersRepository.save(newListener)
+    }
+
+    async findAllWithMusicId(id: number) {
+        const countedAvarage = await this.listenersRepository
+            .createQueryBuilder('listeners')
+            .andWhere('listeners.music = :id', { id })
+            .getCount()
+        return countedAvarage
     }
 }

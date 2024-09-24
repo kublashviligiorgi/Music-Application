@@ -13,9 +13,9 @@ export class ListenersController {
     return this.listenersService.create(createListenerDto, req.user.id);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.listenersService.findOne(+id);
+  @Get(':id')
+  findAllWithMusicId(@Param('id') id: string) {
+    return this.listenersService.findAllWithMusicId(+id);
 
-  // }
+  }
 }
